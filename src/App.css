@@ -1,0 +1,78 @@
+
+.App {
+
+    background-color: #282c34;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: calc(10px + 2vmin);
+    color: white;
+
+}
+
+.wrapper {
+    width: 400px;
+    height: 400px;
+    border: aqua solid 3px;
+    border-radius: 16px;
+    padding: 8px;
+    background-color: #282c34;
+}
+
+.display {
+    border: aqua solid 3px;
+    border-radius: 8px;
+    height: 160px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center;
+    margin-bottom: 1%;
+    background-color: aqua;
+    color: #282c34;
+
+}
+
+.displayDefault {
+    margin: 35px 0;
+    font-size: 4rem;
+}
+
+.displayMax {
+    margin: 35px 0;
+    font-size: 4rem;
+    color: red;
+
+}
+
+.butt {
+    border: none;
+    border-radius: 12px;
+    padding: 15px 32px;
+    width: 120px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 10px;
+    background-color: aqua;
+    font-family: Saira Extra Condensed, sans-serif;
+    font-weight: 700;
+}
+
+.butt:disabled {
+    color: black;
+    background-color: rgba(0, 255, 255, 0.38);
+}
+
+.buttContainer {
+    display: block;
+    height: 210px;
+    border: aqua solid 3px;
+    border-radius: 16px;
+    padding: 8px;
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+}
