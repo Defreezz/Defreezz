@@ -19,6 +19,7 @@
     border-radius: 16px;
     padding: 8px;
     background-color: #282c34;
+    position:relative;
 }
 
 .display {
@@ -50,7 +51,7 @@
     border: none;
     border-radius: 12px;
     padding: 15px 32px;
-    width: 120px;
+    width: 110px;
     text-align: center;
     text-decoration: none;
     display: inline-block;
@@ -67,12 +68,46 @@
 }
 
 .buttContainer {
-    display: block;
     height: 210px;
+    width: 390px;
     border: aqua solid 3px;
     border-radius: 16px;
-    padding: 8px;
+    padding: 2px;
     display: flex;
     justify-content: center;
     align-items: flex-end;
+    position: absolute;
+    bottom: 2px;
+}
+.buttContainerSet{
+    height: 210px;
+    width: 390px;
+    border: aqua solid 3px;
+    border-radius: 16px;
+    padding: 2px;
+    display: flex;
+    justify-content: flex-end;
+    align-items: flex-end;
+    position: absolute;
+    bottom: 2px;
+}
+
+.inputSet{
+    border: #282c34 solid 3px;
+    border-radius: 6px;
+    height:25px;
+    margin: 8px;
+}
+.inputSetError{
+    border: #ff0d0d solid 3px;
+    background-color: rgba(248, 0, 0, 0.77);
+    box-shadow:0 0 8px 0 rgba(248, 0, 0, 0.9);;
+    color: white;
+    border-radius: 6px;
+    height:25px;
+    margin: 8px;
+
+}
+.spanError{
+    color: #ff0d0d;
 }

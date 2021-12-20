@@ -3,7 +3,7 @@ import React from "react";
 type ButtonType = {
     name: string
     callback: () => void
-    disabled:boolean
+    disabled?:boolean
 }
 
 export function Button ({name,callback,disabled}:ButtonType) {
