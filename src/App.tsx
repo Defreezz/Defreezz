@@ -27,6 +27,7 @@ function App () {
     }
     useEffect(() => {getLocalStorageHandler()},[])
 
+
     const getLocalStorageHandler = () => {
         let max = localStorage.getItem("MaxValue")
         let min = localStorage.getItem("StartValue")
