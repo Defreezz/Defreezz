@@ -33,9 +33,9 @@ function App () {
         setMaxValue(max && JSON.parse(max))
         setStartValue(min && JSON.parse(min))
         setCounter(min && JSON.parse(min))
-        setCounter(0)
-        setStartValue(0)
-        setMaxValue(0)
+        max ===null && setCounter(0)
+        max===null &&setStartValue(0)
+        max===null &&setMaxValue(0)
     }
 
 
