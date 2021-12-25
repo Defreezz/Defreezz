@@ -93,7 +93,7 @@ export function CounterV1() {
                 <div className={"wrapper"}>
                     <Display value={counter} maxValue={maxValue} startValue={startValue}/>
                     <span className={"buttContainer"}>
-                    <Button name={"INC"} callback={inc} disabled={counter >= maxValue}/>
+                    <Button name={"INC"} callback={inc} disabled={counter >= maxValue || startValue < 0}/>
                     <Button name={"RESET"} callback={reset} disabled={counter === startValue}/>
                 </span>
                 </div>
