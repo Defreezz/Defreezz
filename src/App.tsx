@@ -6,7 +6,7 @@ import {CounterV1} from "./Counter_v1";
 
 
 function App() {
-//логика отображения версиии счетчика
+//отображения версиии счетчика
     const [changeVersion, setChangeVersion] = useState<boolean>(false)
 
 //localstorage
@@ -26,7 +26,6 @@ function App() {
     useEffect(() => {
         setLocalStorage(changeVersion)
     }, [changeVersion])
-
 
 
 //UI
@@ -56,14 +55,10 @@ function App() {
                     />
                     v2
                 </span>
-
-
                 </div>
                 <CounterV1/>
             </div>
     )
-
-
 }
 
 export default App;

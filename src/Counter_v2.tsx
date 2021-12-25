@@ -9,13 +9,10 @@ export function CounterV2 () {
     const inc = () => {if (counter < maxValue) {setCounter(counter + 1) }}
     const reset = () => {setCounter(startValue)}
 
-
     const  [startValue,setStartValue] = useState<number>(0)
-
 
     const [maxValue, setMaxValue] = useState<number>(0)
     const maxValueHandler = (e:ChangeEvent<HTMLInputElement>) => {setMaxValue(Number(e.currentTarget.value))}
-
 
     //  локалстораж
     const setLocalStorage = () => {
@@ -23,7 +20,6 @@ export function CounterV2 () {
         localStorage.setItem("StartValue",JSON.stringify(startValue))
     }
     useEffect(() => {getLocalStorageHandler()},[])
-
 
     const getLocalStorageHandler = () => {
         let max = localStorage.getItem("MaxValue")
@@ -36,7 +32,6 @@ export function CounterV2 () {
         max === null && setMaxValue(0)
     }
 
-
     // стейт отображения настроек счетчика
     const [mode, setMode] = useState<boolean>(true)
     const saveSettings = () => {
@@ -46,13 +41,12 @@ export function CounterV2 () {
     }
 //логика ошибки
 
-
     //UI
     return (
         mode
             ? <div >
                 <div className={"wrapper"}>
-                    <Display value={counter} maxValue={maxValue} startValue={startValue}/>
+                    <Display value={counter} maxValue={maxValue} />
                     <span className={"buttContainer"}>
                     <Button name={"INC"} callback={inc} disabled={counter >= maxValue}/>
                     <Button name={"RESET"} callback={reset} disabled={counter === startValue}/>
@@ -60,19 +54,17 @@ export function CounterV2 () {
                 </span>
                 </div>
             </div>
-            :
-                <div className={"wrapper"}>
+            : <div className={"wrapper"}>
                     <div className={"display"}>
-
-                        <span className={maxValue<=startValue?"spanError":""}>Max Value </span>
+                        <span className={maxValue <= startValue || maxValue<=0?"spanError":"spanDefault"}>Max Value </span>
                         <input
                             value={maxValue}
-                            className={maxValue<=startValue?"inputSetError":"inputSet"}
+                            className={maxValue <= startValue || maxValue<=0?"inputSetError":"inputSet"}
                             type={"number"}
                             onChange={maxValueHandler}
                         />
                         <br/>
-                        <span className={maxValue<=startValue?"spanError":""}>Start Value</span>
+                        <span className={maxValue <= startValue || maxValue<=0?"spanError":"spanDefault"}>Start Value</span>
                         <input
                             value={startValue}
                             className={maxValue<=startValue || startValue < 0?"inputSetError":"inputSet"}
@@ -80,17 +72,14 @@ export function CounterV2 () {
                             onChange={(e)=>{setStartValue(Number(e.currentTarget.value)); setCounter(Number(e.currentTarget.value))}}
                         />
                     </div>
-
                     <span className={"buttContainerSet"}>
                     <Button
                         disabled={startValue >= maxValue || startValue < 0}
                         name={"SAVE"}
                         callback={saveSettings}
-
                     />
                 </span>
                 </div>
-
     )
 
 }
