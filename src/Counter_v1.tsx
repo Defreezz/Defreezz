@@ -94,7 +94,7 @@ export function CounterV1() {
                     {/*    :<Display value={counter} maxValue={maxValue}/>}*/}
 
                     <span className={"buttContainer"}>
-                    <Button name={"INC"} callback={inc} disabled={error?true:false}/>
+                    <Button name={"INC"} callback={inc} disabled={error?true:false || counter === maxValue}/>
                     <Button name={"RESET"} callback={reset} disabled={error?true:false || counter === startValue}/>
                 </span>
                 </div>
