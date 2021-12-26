@@ -16,7 +16,6 @@ function App() {
     const getLocalStorageHandler = () => {
         let version = localStorage.getItem("VersionCounter")
         setChangeVersion(version && JSON.parse(version))
-
     }
 
     useEffect(() => {
