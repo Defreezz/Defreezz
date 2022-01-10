@@ -5,7 +5,10 @@ type DisplayType = {
     maxValue:number
 }
 
-export function Display  ({value,maxValue}:DisplayType) {
+export function Display  ({
+                              value,
+                              maxValue
+                            }:DisplayType) {
     const displayStyle = (value === maxValue ? "displayMax" : "displayDefault")
 
     return (
