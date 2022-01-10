@@ -12,6 +12,7 @@ import {
 import {CounterV1} from "../Counters/Counter_v1";
 import {CounterV2} from "../Counters/Counter_v2";
 import {Switch} from "@material-ui/core";
+import {isBoolean} from "util";
 
 
 export function CounterContainer() {
@@ -66,8 +67,9 @@ export function CounterContainer() {
     }
 
 //useEffects
-    useEffect(() => { getLocalStorageHandler()}, [])//забирает
-    //useEffect(() => { getLocalStorageVersion() },[] )
+    //забирает из localstorage стартовое состояния или зануляет, если не проходит валидацию
+    useEffect(() => { getLocalStorageHandler()}, [])
+
     useEffect(() => { setLocalStorageVersionCounter(versionCounter) }, [versionCounter])
 
 //localstorage
@@ -82,7 +84,10 @@ export function CounterContainer() {
         let max = localStorage.getItem("MaxValue")
         let min = localStorage.getItem("StartValue")
         let version = localStorage.getItem("VersionCounter")
-        dispatch(setVersionCounter(version && JSON.parse(version)))
+        if(typeof version == "boolean"){
+            dispatch(setVersionCounter(version && JSON.parse(version)))
+        }
+
         if(Number.isInteger(Number(max) && Number(min))){
             dispatch(setMaxValue(max && JSON.parse(max)))
             dispatch(setStartValue(min && JSON.parse(min)))
@@ -93,9 +98,6 @@ export function CounterContainer() {
             dispatch(setMaxValue(0))
         }
     }
-    // const getLocalStorageVersion = () => {
-    //
-    // }
 
 //UI
     return (
