@@ -94,17 +94,22 @@ export function CounterContainer() {
         let version = localStorage.getItem("VersionCounter")
 
         dispatch(setVersionCounter(version && JSON.parse(version)))
+        //если в localstorage нет значений
         if(max === null||min===null){
             dispatch(setMaxValue(0))
             dispatch(setStartValue(0))
             dispatch(setCounter(0))
-            dispatch(setAfterSaveValues(max && JSON.parse(max),min && JSON.parse(min)))
-        }else if(Number.isInteger(Number(max) && Number(min))){
+            dispatch(setAfterSaveValues(0,0))
+        }
+        //если значения есть
+        else if(Number.isInteger(Number(max) && Number(min))){
             dispatch(setMaxValue(max && JSON.parse(max)))
             dispatch(setStartValue(min && JSON.parse(min)))
             dispatch(setCounter(min && JSON.parse(min)))
             dispatch(setAfterSaveValues(max && JSON.parse(max),min && JSON.parse(min)))
-        }else{
+        }
+        //если в localstorage !number
+        else{
             dispatch(setCounter(0))
             dispatch(setStartValue(0))
             dispatch(setMaxValue(0))
