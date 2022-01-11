@@ -2,7 +2,7 @@ import React, {ChangeEvent, Dispatch, useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {selectCounter} from "../../Bll/selectors";
 import {
-    CounterReducersTypes,
+    CounterReducersTypes, setAfterSaveValues,
     setCounter,
     setError,
     setMaxValue,
@@ -12,7 +12,6 @@ import {
 import {CounterV1} from "../Counters/Counter_v1";
 import {CounterV2} from "../Counters/Counter_v2";
 import {Switch} from "@material-ui/core";
-import {isBoolean} from "util";
 
 
 export function CounterContainer() {
@@ -23,6 +22,8 @@ export function CounterContainer() {
         maxValue,
         error,
         versionCounter,
+        afterSaveMaxValue,
+        afterSaveStartValue,
     } = useSelector(selectCounter)
     const dispatch = useDispatch<Dispatch<CounterReducersTypes>>()
 
@@ -52,18 +53,22 @@ export function CounterContainer() {
     }
 //error
     //const [error,setError] = useState<string>('')
-    const onFocusHandler = () => {dispatch(setError('enter values and press "save"'))}
+    const onFocusHandler = () => {
+        dispatch(setAfterSaveValues(0,0))
+        dispatch(setError('enter values and press "save"'))}
 
 //button save (counter v1)
     const saveSettingsHandler = () => {
         dispatch(setError(''))
         dispatch(setCounter(startValue))
+        dispatch(setAfterSaveValues(maxValue,startValue))
         setLocalStorageValues()
     }
 //button set (counter v2)
     const setSettingsHandler = () => {
         setLocalStorageValues()
         setCounter(startValue)
+        dispatch(setAfterSaveValues(maxValue,startValue))
     }
 
 //useEffects
@@ -81,14 +86,17 @@ export function CounterContainer() {
         localStorage.setItem("VersionCounter", JSON.stringify(version))}
 
     const getLocalStorageHandler = () => {
+        debugger
         let max = localStorage.getItem("MaxValue")
         let min = localStorage.getItem("StartValue")
         let version = localStorage.getItem("VersionCounter")
-        if(typeof version == "boolean"){
-            dispatch(setVersionCounter(version && JSON.parse(version)))
-        }
 
-        if(Number.isInteger(Number(max) && Number(min))){
+        dispatch(setVersionCounter(version && JSON.parse(version)))
+        if(max === null||min===null){
+            dispatch(setMaxValue(0))
+            dispatch(setStartValue(0))
+            dispatch(setCounter(0))
+        }else if(Number.isInteger(Number(max) && Number(min))){
             dispatch(setMaxValue(max && JSON.parse(max)))
             dispatch(setStartValue(min && JSON.parse(min)))
             dispatch(setCounter(min && JSON.parse(min)))
@@ -140,6 +148,8 @@ export function CounterContainer() {
                     </span>
                 </div>
                 <CounterV1
+                    afterSaveMaxValue={afterSaveMaxValue}
+                    afterSaveStartValue={afterSaveStartValue}
                     startValue={startValue}
                     counter={counter}
                     maxValue={maxValue}

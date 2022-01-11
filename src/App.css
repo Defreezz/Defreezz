@@ -80,7 +80,7 @@
 
 .butt:disabled {
     color: black;
-    background-color: rgba(0, 255, 255, 0.38);
+    background-color: rgb(44, 161, 162);
 }
 .butt:active {
     border: none;

@@ -4,6 +4,7 @@ export enum ACTIONS_TYPES {
     SET_MAX_VALUE = 'Counter/SET_MAX_VALUE',
     SET_ERROR = 'Counter/SET_ERROR',
     SET_VERSION_COUNTER='Counter/SET_VERSION_COUNTER',
+    SET_AFTER_SAVE_VALUES='Counter/SET_AFTER_SAVE_VALUES'
 }
 export type SetCounterType = {
     type:ACTIONS_TYPES.SET_COUNTER
@@ -35,13 +36,21 @@ export type SetVersionCounterType = {
         versionCounter:boolean
     }
 }
+export type SetAfterSaveValues = {
+    type:ACTIONS_TYPES.SET_AFTER_SAVE_VALUES
+    payload:{
+        afterSaveMaxValue:number
+        afterSaveStartValue:number
+    }
+}
 
 export type CounterReducersTypes =
     SetCounterType |
     SetStartValueType |
     SetMaxValueType |
     SetErrorValueType |
-    SetVersionCounterType
+    SetVersionCounterType |
+    SetAfterSaveValues
 
 export const setCounter = (counter:number):SetCounterType => {
     return {
@@ -80,6 +89,15 @@ export const setVersionCounter = (versionCounter:boolean):SetVersionCounterType 
         type:ACTIONS_TYPES.SET_VERSION_COUNTER,
         payload:{
             versionCounter,
+        },
+    }
+}
+export const setAfterSaveValues = (afterSaveMaxValue:number,afterSaveStartValue:number):SetAfterSaveValues => {
+    return {
+        type:ACTIONS_TYPES.SET_AFTER_SAVE_VALUES,
+        payload:{
+            afterSaveMaxValue,
+            afterSaveStartValue,
         },
     }
 }

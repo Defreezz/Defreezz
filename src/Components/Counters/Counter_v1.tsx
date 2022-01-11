@@ -6,6 +6,8 @@ type CounterType = {
     counter: number
     maxValue: number
     startValue: number
+    afterSaveMaxValue:number
+    afterSaveStartValue:number
     error: string
     maxValueHandler: (e: ChangeEvent<HTMLInputElement>) => void
     startValueHandler: (e: ChangeEvent<HTMLInputElement>) => void
@@ -19,6 +21,8 @@ export function CounterV1({
                               counter,
                               maxValue,
                               startValue,
+                              afterSaveMaxValue,
+                              afterSaveStartValue,
                               error,
                               maxValueHandler,
                               startValueHandler,
@@ -59,7 +63,9 @@ export function CounterV1({
                 </div>
                 <span className={"buttContainerSet"}>
                     <Button
-                        disabled={startValue >= maxValue || startValue < 0}
+                        disabled={
+                        (startValue >= maxValue) || (startValue < 0) || (afterSaveMaxValue === maxValue && afterSaveStartValue === startValue)
+                    }
                         name={"SAVE"}
                         callback={saveSettingsHandler}
                     />
