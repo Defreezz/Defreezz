@@ -59,15 +59,16 @@ export function CounterContainer() {
 
 //button save (counter v1)
     const saveSettingsHandler = () => {
+        setLocalStorageValues()
         dispatch(setError(''))
         dispatch(setCounter(startValue))
         dispatch(setAfterSaveValues(maxValue,startValue))
-        setLocalStorageValues()
+
     }
 //button set (counter v2)
     const setSettingsHandler = () => {
         setLocalStorageValues()
-        setCounter(startValue)
+        dispatch(setCounter(startValue))
         dispatch(setAfterSaveValues(maxValue,startValue))
     }
 
@@ -81,12 +82,13 @@ export function CounterContainer() {
     const setLocalStorageValues = () => {
         localStorage.setItem("MaxValue", JSON.stringify(maxValue))
         localStorage.setItem("StartValue", JSON.stringify(startValue))
+        localStorage.setItem("afterSaveStartValue", JSON.stringify(startValue))
+        localStorage.setItem("afterSaveMaxValue", JSON.stringify(maxValue))
     }
     const setLocalStorageVersionCounter = (version:boolean) => {
         localStorage.setItem("VersionCounter", JSON.stringify(version))}
 
     const getLocalStorageHandler = () => {
-        debugger
         let max = localStorage.getItem("MaxValue")
         let min = localStorage.getItem("StartValue")
         let version = localStorage.getItem("VersionCounter")
@@ -96,10 +98,12 @@ export function CounterContainer() {
             dispatch(setMaxValue(0))
             dispatch(setStartValue(0))
             dispatch(setCounter(0))
+            dispatch(setAfterSaveValues(max && JSON.parse(max),min && JSON.parse(min)))
         }else if(Number.isInteger(Number(max) && Number(min))){
             dispatch(setMaxValue(max && JSON.parse(max)))
             dispatch(setStartValue(min && JSON.parse(min)))
             dispatch(setCounter(min && JSON.parse(min)))
+            dispatch(setAfterSaveValues(max && JSON.parse(max),min && JSON.parse(min)))
         }else{
             dispatch(setCounter(0))
             dispatch(setStartValue(0))
