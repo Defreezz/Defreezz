@@ -27,6 +27,8 @@
 .v1{
     display: flex;
     flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: center;
 }
 .switch{
     display: flex;

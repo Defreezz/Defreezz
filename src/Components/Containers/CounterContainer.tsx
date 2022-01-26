@@ -1,4 +1,4 @@
-import React, {ChangeEvent, Dispatch, useEffect} from "react";
+import React, {ChangeEvent, Dispatch, useCallback, useEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {selectCounter} from "../../Bll/selectors";
 import {
@@ -15,8 +15,7 @@ import {CounterV2} from "../Counters/Counter_v2";
 import {Switch} from "@material-ui/core";
 
 
-export function CounterContainer() {
-
+export const CounterContainer = React.memo( function () {
     const {
         counter,
         startValue,
@@ -31,8 +30,8 @@ export function CounterContainer() {
 
 
     //const [counter, setCounter] = useState<number>(0)
-    const inc = () => {if (counter < maxValue) {dispatch(setCounter(counter + 1))}}
-    const reset = () => {dispatch(setCounter(startValue))}
+    const inc = useCallback (() => {if (counter < maxValue) {dispatch(setCounter(counter + 1))}},[dispatch,maxValue,counter])
+    const reset = useCallback (() => {dispatch(setCounter(startValue))},[dispatch,startValue])
 
     // const [startValue, setStartValue] = useState<number>(0)
     // const [maxValue, setMaxValue] = useState<number>(0)
@@ -72,13 +71,6 @@ export function CounterContainer() {
         dispatch(setCounter(startValue))
         dispatch(setAfterSaveValues(maxValue,startValue))
     }
-
-//useEffects
-    //забирает из localstorage стартовое состояния или зануляет, если не проходит валидацию
-    useEffect(() => { getLocalStorageHandler()}, [])
-
-    useEffect(() => { setLocalStorageVersionCounter(versionCounter) }, [versionCounter])
-
 //localstorage
     const setLocalStorageValues = () => {
         localStorage.setItem("MaxValue", JSON.stringify(maxValue))
@@ -116,10 +108,28 @@ export function CounterContainer() {
             dispatch(setMaxValue(0))
         }
     }
+//useEffects
+    //забирает из localstorage стартовое состояния или зануляет, если не проходит валидацию
+    useEffect(() => {
+         getLocalStorageHandler()}, [])
 
+    useEffect(() => {
+       setLocalStorageVersionCounter(versionCounter)}, [versionCounter]);
+    // useEffect(()=> {
+    //     window.addEventListener('DOMContentLoaded',(e)=>{
+    //         console.log(e)
+    //     })
+    // },[])
+
+
+
+
+     console.log("div")
 //UI
     return (
+
         versionCounter
+
             ?<div className="App">
             <div className={"switch"}>
             <span>
@@ -173,4 +183,4 @@ export function CounterContainer() {
                 />
             </div>
     )
-}
+})

@@ -1,14 +1,14 @@
 import React from "react";
 
 type DisplayType = {
-    value:number
-    maxValue:number
+    value: number
+    maxValue: number
 }
 
-export function Display  ({
-                              value,
-                              maxValue
-                            }:DisplayType) {
+export const Display = React.memo(function ({
+                                                value,
+                                                maxValue
+                                            }: DisplayType) {
     const displayStyle = (value === maxValue ? "displayMax" : "displayDefault")
 
     return (
@@ -16,4 +16,4 @@ export function Display  ({
             <div className={displayStyle}>{value}</div>
         </div>
     )
-}
+})
