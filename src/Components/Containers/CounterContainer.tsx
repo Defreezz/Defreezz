@@ -1,8 +1,9 @@
-import React, {ChangeEvent, Dispatch, useCallback, useEffect} from "react";
+import React, {ChangeEvent, Dispatch, useCallback, useLayoutEffect} from "react";
 import {useDispatch, useSelector} from "react-redux";
 import {selectCounter} from "../../Bll/selectors";
 import {
-    CounterReducersTypes, setAfterSaveValues,
+    CounterReducersTypes,
+    setAfterSaveValues,
     setCounter,
     setError,
     setMaxValue,
@@ -26,7 +27,6 @@ export const CounterContainer = React.memo( function () {
         afterSaveStartValue,
     } = useSelector(selectCounter)
     const dispatch = useDispatch<Dispatch<CounterReducersTypes>>()
-
 
 
     //const [counter, setCounter] = useState<number>(0)
@@ -110,17 +110,16 @@ export const CounterContainer = React.memo( function () {
     }
 //useEffects
     //забирает из localstorage стартовое состояния или зануляет, если не проходит валидацию
-    useEffect(() => {
+    useLayoutEffect(() => {
          getLocalStorageHandler()}, [])
 
-    useEffect(() => {
+    useLayoutEffect(() => {
        setLocalStorageVersionCounter(versionCounter)}, [versionCounter]);
     // useEffect(()=> {
     //     window.addEventListener('DOMContentLoaded',(e)=>{
     //         console.log(e)
     //     })
     // },[])
-
 
 
 
